@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заметки — лабораторная работа №6</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="/">Заметки</a>
+    <nav>
+      <a href="/notes">Заметки</a>
+      <a href="/docs">Swagger</a>
+      <a href="/api/info">JSON</a>
+    </nav>
+  </header>
+  <main class="container">
+    <section class="hero">
+      <h1>Заметки на FastAPI</h1>
+      <p>Лабораторная работа №6 «Веб-программирование».<br>
+         Фадеев Иван Александрович, группа 221141, вариант 7.</p>
+    </section>
+    <section class="grid">
+      <a class="card link" href="/notes">
+        <h2>Страница заметок</h2>
+        <p>Шаблон Jinja2 с данными: список, поиск, теги и форма.</p>
+      </a>
+      <a class="card link" href="/api/info">
+        <h2>JSON-эндпоинт</h2>
+        <p><code>GET /api/info</code> — сведения о приложении.</p>
+      </a>
+      <a class="card link" href="/docs">
+        <h2>REST API</h2>
+        <p>CRUD заметок по адресу <code>/api/notes</code>, документация
+           Swagger.</p>
+      </a>
+    </section>
+  </main>
+  <footer class="footer">Эта страница — статический HTML с CSS.</footer>
+</body>
+</html>
