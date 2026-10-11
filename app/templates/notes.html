@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Заметки — {{ app_name }}{% endblock %}
+{% block content %}
+<h1>Заметки</h1>
+<p class="muted">
+  Показано {{ notes|length }} из {{ total }}
+  {%- if active_tag %} · тег <strong>#{{ active_tag }}</strong>{% endif %}
+  {%- if query %} · поиск «{{ query }}»{% endif %}
+</p>
+
+<form class="search" method="get" action="/notes">
+  <input type="search" name="q" value="{{ query }}" placeholder="Поиск">
+  <button type="submit">Найти</button>
+  {% if query or active_tag %}<a href="/notes">Сбросить</a>{% endif %}
+</form>
+
+{% if tags %}
+<p class="tags">
+  {% for tag in tags %}
+  <a class="tag{% if tag == active_tag %} active{% endif %}"
+     href="/notes?tag={{ tag|urlencode }}">#{{ tag }}</a>
+  {% endfor %}
+</p>
+{% endif %}
+
+{% for note in notes %}
+<article class="card">
+  <h2>{{ note.title }}</h2>
+  {% if note.text %}<p>{{ note.text }}</p>{% endif %}
+  <p class="meta">
+    №{{ note.id }} · {{ note.created_at.strftime("%d.%m.%Y %H:%M") }} UTC
+    {% for tag in note.tags %}<span class="tag">#{{ tag }}</span>{% endfor %}
+  </p>
+</article>
+{% else %}
+<p class="empty">Заметок не найдено.</p>
+{% endfor %}
+
+<h2>Новая заметка</h2>
+{% if error %}<p class="error">Ошибка: {{ error }}</p>{% endif %}
+<form class="note-form" method="post" action="/notes">
+  <label>Заголовок <input name="title" value="{{ form.title }}" required
+    maxlength="100"></label>
+  <label>Текст <textarea name="text" rows="3">{{ form.text }}</textarea></label>
+  <label>Теги через запятую <input name="tags" value="{{ form.tags }}"></label>
+  <button type="submit">Добавить</button>
+</form>
+{% endblock %}

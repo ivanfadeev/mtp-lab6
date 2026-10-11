@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from app import APP_NAME, APP_VERSION, api
+from app import APP_NAME, APP_VERSION, api, pages
 from app.storage import NoteRepository, demo_repository
 
 STATIC = Path(__file__).parent / "static"
@@ -27,6 +27,7 @@ def create_app(notes: NoteRepository | None = None) -> FastAPI:
     )
     application.mount("/static", StaticFiles(directory=STATIC), name="static")
     application.include_router(api.router)
+    application.include_router(pages.router)
 
     @application.get("/", include_in_schema=False)
     def index() -> FileResponse:
